@@ -34,7 +34,8 @@ class Grafo:
         for i in range(numeroDeVertices):
             vertices[i] = Vertice(i,celulas[i])
         return vertices
-    
+     
+    #Gera quadros de numéros  
     def geraQuadros(self,numeroDeVertices,dimensaoQuadro,ordem):
         listaQuadros = []
         for primeiroQuadroVertical in range (0,numeroDeVertices,dimensaoQuadro*ordem):
@@ -119,13 +120,6 @@ class Grafo:
                 self.vertices[maiorSaturacao].diminuiSaturacaoAdjacentes()
                 self.vertices[maiorSaturacao].setvalor("N")
         return False
-
-
-    def solucao(self, output_file_name):
-        if self.dSatur():
-            print ("Solução encontrada e salva no arquivo de saída. ",output_file_name)
-        else:
-            print("Solução não encontrada")
 
     def escreveArquivo(self, output_file_name):
         output_file = open(output_file_name, "w+")
