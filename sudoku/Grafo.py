@@ -131,5 +131,5 @@ class Grafo:
         output_file = open(output_file_name, "w+")
         for vertices in self.vertices:                
             if(vertices % self.ordem == 0 and vertices != 0):
-                print("\n",file=output_file)
-            print(self.vertices[vertices].getvalor()," ",end="",file=output_file)
+                print("",file=output_file)
+            print(self.vertices[vertices].getvalor(),"",end="",file=output_file)

@@ -28,7 +28,7 @@ class Vertice:
     def aumentaSaturacao(self):
         self.grauSaturacao += 1
 
-    def decrementSaturation(self):
+    def diminuiSaturacao(self):
         self.grauSaturacao += 1
 
     def getSaturation(self):
@@ -41,12 +41,12 @@ class Vertice:
     def coresPossiveis(self,ordem):
         possibilidades = list(range(1,ordem+1))
         setPossibilidades = set(possibilidades)
-        alreadyExist = set()
+        jaExiste = set()
         for adjacente in self.adjacentes:
             if adjacente.getvalor() == "N":
                 continue
-            alreadyExist.add(int(adjacente.getvalor()))
-        setPossibilidades = setPossibilidades - alreadyExist
+            jaExiste.add(int(adjacente.getvalor()))
+        setPossibilidades = setPossibilidades - jaExiste
         if (len(setPossibilidades) == 0):
             return -1
         return list(setPossibilidades)
@@ -57,4 +57,4 @@ class Vertice:
 
     def diminuiSaturacaoAdjacentes(self):
         for adjacente in self.adjacentes:
-            adjacente.decrementSaturation()
+            adjacente.diminuiSaturacao()
