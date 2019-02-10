@@ -6,8 +6,6 @@ Created on Thu Jan 31 19:21:29 2019
 """
 
 
-
-
 import math
 from Vertice import Vertice
 
@@ -15,11 +13,11 @@ from Vertice import Vertice
 class Grafo:
     def __init__(self,celulas):
         self.numeroDeVertices = len(celulas)
+        self.vertices = self.geraVertices(celulas,self.numeroDeVertices)
         self.ordem = int(math.sqrt(self.numeroDeVertices))
         self.dimensaoQuadro = int(math.sqrt(self.ordem))
-        self.vertices = self.geraVertices(celulas,self.numeroDeVertices)
-        self.quadros = self.geraQuadros(self.numeroDeVertices,self.dimensaoQuadro,self.ordem)
-        self.juntaAdjacentes(self.ordem)
+        self.quadros = self.geraQuadros(self.numeroDeVertices, self.dimensaoQuadro, self.ordem)
+        self.todosAdjacentes(self.ordem)
         
 
     def solucao(self,output_file_name):
@@ -73,40 +71,40 @@ class Grafo:
             if indice in quadro:
                 return quadro
 
-    def juntaAdjacentes(self,ordem):
+    def todosAdjacentes(self,ordem):
         for vertice in self.vertices:
             linhaAdjacentes = self.linhaAdjacentes(vertice,ordem)
             colunaAdjacentes = self.colunaAdjacentes(vertice,ordem)
             quadroAdjacentes = self.quadroAdjacentes(vertice)
             adjacentes = linhaAdjacentes | colunaAdjacentes | quadroAdjacentes
-            self.atribuiAdjacentes(vertice,adjacentes)
+            self.adicionaAdjacentes(vertice,adjacentes)
 
-    def atribuiAdjacentes(self,vertice,adjacentes):
+    def adicionaAdjacentes(self,vertice,adjacentes):
         for adjacente in adjacentes:
             if (vertice != adjacente):
-                self.vertices[vertice].setAdjacente(self.vertices[adjacente])
+                self.vertices[vertice].addAdjacente(self.vertices[adjacente])
         self.vertices[vertice].calculaSaturacao()
 
     def maiorSaturacao(self):
         maiorSaturacao = 0
         maiorIndice = 0
         for vertice in self.vertices:
-            if self.vertices[vertice].getSaturation() > maiorSaturacao and self.vertices[vertice].getvalor() == "N":
-                maiorSaturacao = self.vertices[vertice].getSaturation()
+            if self.vertices[vertice].getSaturacao() > maiorSaturacao and self.vertices[vertice].getvalor() == "N":
+                maiorSaturacao = self.vertices[vertice].getSaturacao()
                 maiorIndice = vertice
         return maiorIndice  
 
-    def todasCores(self):
+    def todosColoridos(self):
         for vertice in self.vertices:
             if self.vertices[vertice].getvalor() == "N":
                 return False
         return True
 
     def dSatur(self):
-        if self.todasCores():
+        if self.todosColoridos():
             return True
         maiorSaturacao = self.maiorSaturacao()
-        coresPossiveis = self.vertices[maiorSaturacao].coresPossiveis(self.ordem)
+        coresPossiveis = self.vertices[maiorSaturacao].cores(self.ordem)
         if coresPossiveis == -1:
             return False
         if not coresPossiveis:

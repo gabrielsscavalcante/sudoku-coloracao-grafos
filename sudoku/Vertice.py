@@ -31,14 +31,14 @@ class Vertice:
     def diminuiSaturacao(self):
         self.grauSaturacao += 1
 
-    def getSaturation(self):
+    def getSaturacao(self):
         return self.grauSaturacao
 
-    def setAdjacente(self,vertice):
+    def addAdjacente(self,vertice):
         self.adjacentes.append(vertice)
         self.grau += 1
 
-    def coresPossiveis(self,ordem):
+    def cores(self,ordem):
         possibilidades = list(range(1,ordem+1))
         setPossibilidades = set(possibilidades)
         jaExiste = set()
